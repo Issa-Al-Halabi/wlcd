@@ -1,0 +1,42 @@
+/** edit.css **/
+.back {
+  background-color: #F6F7FC;
+  border-color: white;
+}
+
+.bord {
+  background-color: white;
+  border-color: #bbdbe7;
+  transition: 0.5s;
+
+}
+
+.blog-home-main-block {
+  height: 100px;
+  padding: 22px 22px;
+  font-size: 40px;
+  color: white;
+}
+
+.name {
+  font-size: 25px;
+}
+
+.s-left {
+  position: relative;
+  left: 64px;
+}
+
+.s-left1 {
+  position: relative;
+  left: 47px;
+}
+
+.s-left2 {
+  position: relative;
+  left: 17px;
+}
+
+.s-color {
+  color: #a6a6a6;
+}
