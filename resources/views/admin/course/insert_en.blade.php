@@ -479,7 +479,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-6">
+                                {{-- <div class="col-md-6">
                                     <label class="text-dark">{{ __('adminstaticword.Image') }} 2:<span
                                             class="text-danger">*</span></label><br>
                                     <div class="input-group mb-3">
@@ -491,7 +491,7 @@
                                                 id="basic-addon2">{{ __('Browse') }}</span>
                                         </div>
                                     </div>
-                                </div>
+                                </div> --}}
                             @endif
 
 

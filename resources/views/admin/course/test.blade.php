@@ -28,10 +28,10 @@
                 <div class="tab-content" id="pills-tabContent">
                     <div class="tab-pane fade show active" id="pills-english" role="tabpanel"
                         aria-labelledby="pills-english-tab">
-                        @include('admin.course.editcor_en')
+                        @include('admin.course.test_en')
                     </div>
                     <div class="tab-pane fade" id="pills-arabic" role="tabpanel" aria-labelledby="pills-arabic-tab">
-                        @include('admin.course.editcor_ar')
+                        @include('admin.course.test_ar')
                     </div>
 
                 </div>
