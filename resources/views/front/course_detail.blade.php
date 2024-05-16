@@ -28,41 +28,45 @@
     <meta name="keywords" content="{{ $gsetting->meta_data_keyword }}">
     <link rel="stylesheet" href="https://cdn.plyr.io/3.7.3/plyr.css" />
 @endsection
-    <!-- breadcumb start -->
-    @php
-        $gets = App\Breadcum::first();
-    @endphp
-    @if (isset($gets))
-        <section id="business-home" class="business-home-main-block">
-            <div class="business-img">
-                @if ($gets['img'] !== null && $gets['img'] !== '')
-                    <img src="{{ url('/images/breadcum/' . $gets->img) }}" class="img-fluid" width="100%" height="100px" alt="" />
-                @else
-                    <img src="{{ Avatar::create($gets->text)->toBase64() }}" alt="course" width="100%" height="100px" class="img-fluid">
-                @endif
-            </div>
-            <div class="overlay-bg"></div>
-            <div class="container-fluid">
-                <div class="business-dtl" style="position: absolute;
+<!-- breadcumb start -->
+@php
+    $gets = App\Breadcum::first();
+@endphp
+@if (isset($gets))
+    <section id="business-home" class="business-home-main-block">
+        <div class="business-img">
+            @if ($gets['img'] !== null && $gets['img'] !== '')
+                <img src="{{ url('/images/breadcum/' . $gets->img) }}" class="img-fluid" width="100%" height="100px"
+                    alt="" />
+            @else
+                <img src="{{ Avatar::create($gets->text)->toBase64() }}" alt="course" width="100%" height="100px"
+                    class="img-fluid">
+            @endif
+        </div>
+        <div class="overlay-bg"></div>
+        <div class="container-fluid">
+            <div class="business-dtl"
+                style="position: absolute;
                 top: 10%;
                 left: 13%;
                 right: 13%;">
-                    <div class="row">
-                        <div class="col-lg-12 text-left">
-                            <div class="bredcrumb-dtl">
-                                <div class="about-home-block" style="padding: 0 !important">
-                                    <h1 class="about-home-heading" style="margin-bottom: 0 !important">{{ $course['title'] }}</h1>
-                                    <p>{{ $course['short_detail'] }}</p>
-                
-                                </div>
+                <div class="row">
+                    <div class="col-lg-12 text-left">
+                        <div class="bredcrumb-dtl">
+                            <div class="about-home-block" style="padding: 0 !important">
+                                <h1 class="about-home-heading" style="margin-bottom: 0 !important">
+                                    {{ $course['title'] }}</h1>
+                                <p>{{ $course['short_detail'] }}</p>
+
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </section>
-    @endif
-    <!-- breadcumb end -->
+        </div>
+    </section>
+@endif
+<!-- breadcumb end -->
 
 <!-- course detail start -->
 <section id="about-product" class="about-product-main-block">
@@ -71,22 +75,26 @@
             <div class="col-md-8 col-lg-8">
                 <div class="row">
                     <div class="col-lg-12">
-						<div class="video-item hidden-xs" style="display: grid;
+                        <div class="video-item hidden-xs"
+                            style="display: grid;
                         min-height: 60vh;">
-							@if ($course['preview_type'] == 'video')
-								<video controls crossorigin playsinline  width="100%" height="90%"{{-- data-poster="https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-HD.jpg" --}}
-									data-poster="{{ asset('images/course/' . $course['preview_image']) }}" class="js-player">
+                            @if ($course['preview_type'] == 'video')
+                                <video controls crossorigin playsinline width="100%"
+                                    height="90%"{{-- data-poster="https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-HD.jpg" --}}
+                                    data-poster="{{ asset('images/course/' . $course['preview_image']) }}"
+                                    class="js-player">
 
-									<source src="{{ asset('video/preview/' . $course['video']) }}" type="video/mp4" />
-									{{-- <source src="https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-576p.mp4"
+                                    <source src="{{ asset('video/preview/' . $course['video']) }}" type="video/mp4" />
+                                    {{-- <source src="https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-576p.mp4"
                                     type="video/mp4" size="1080" /> --}}
-								</video>
-							@elseif($course['preview_type'] == 'url')
-								<iframe width="100%" height="90%" src="{{ str_replace('watch?v=', 'embed/', $course['url']) }}"
-									frameborder="0" allowfullscreen></iframe>
-							@endif
-						</div>
-					</div>
+                                </video>
+                            @elseif($course['preview_type'] == 'url')
+                                <iframe width="100%" height="90%"
+                                    src="{{ str_replace('watch?v=', 'embed/', $course['url']) }}" frameborder="0"
+                                    allowfullscreen></iframe>
+                            @endif
+                        </div>
+                    </div>
                 </div>
                 <div class="row mt-4" style="padding: 0; margin:0">
                     <div class="col-md-12 col-lg-12" style="padding: 0; margin:0">
@@ -190,12 +198,16 @@
                                                 $minutes = $time % 60;
                                                 return sprintf($format, $hours, $minutes);
                                             }
-                                            $classtwo = App\CourseClass::where('course_id', $course->id)->sum('duration');
-                                            
+                                            $classtwo = App\CourseClass::where('course_id', $course->id)->sum(
+                                                'duration',
+                                            );
+
                                             // echo $duration_round2 = round($classtwo,2);
-                                            
+
                                             $chapterCount = $coursechapters->count();
-                                            $classesCount = count(App\CourseClass::where('course_id', $course->id)->get());
+                                            $classesCount = count(
+                                                App\CourseClass::where('course_id', $course->id)->get(),
+                                            );
                                             $courseDuration = convertToHoursMins($classtwo, '%02dh %02dm total length');
                                             // FSMS
                                         @endphp
@@ -233,8 +245,17 @@
                                                                             @if ($course->involvement_request == 1)
                                                                                 @if ($chapter->user_id != null)
                                                                                     @php
-                                                                                        $fullname = optional($chapter->user)->fname . ' ' . optional($chapter->user)->lname;
-                                                                                        $fullname = preg_replace('/\s+/', '', $fullname);
+                                                                                        $fullname =
+                                                                                            optional($chapter->user)
+                                                                                                ->fname .
+                                                                                            ' ' .
+                                                                                            optional($chapter->user)
+                                                                                                ->lname;
+                                                                                        $fullname = preg_replace(
+                                                                                            '/\s+/',
+                                                                                            '',
+                                                                                            $fullname,
+                                                                                        );
                                                                                     @endphp
                                                                                     <a
                                                                                         href="{{ route('instructor.profile', ['id' => $chapter->user->id, 'name' => $fullname]) }}">-
@@ -247,7 +268,10 @@
                                                                         <div class="col-lg-2 col-4">
                                                                             <div class="text-right">
                                                                                 @php
-                                                                                    $classone = App\CourseClass::where('coursechapter_id', $chapter->id)
+                                                                                    $classone = App\CourseClass::where(
+                                                                                        'coursechapter_id',
+                                                                                        $chapter->id,
+                                                                                    )
                                                                                         ->orderBy('position', 'ASC')
                                                                                         ->get();
                                                                                     if (count($classone) > 0) {
@@ -263,9 +287,15 @@
                                                                         <div class="col-lg-2 col-2">
                                                                             <div class="chapter-total-time">
                                                                                 @php
-                                                                                    $classtwo = App\CourseClass::where('coursechapter_id', $chapter->id)->sum('duration');
-                                                                                    
-                                                                                    echo $duration_round = round($classtwo, 2);
+                                                                                    $classtwo = App\CourseClass::where(
+                                                                                        'coursechapter_id',
+                                                                                        $chapter->id,
+                                                                                    )->sum('duration');
+
+                                                                                    echo $duration_round = round(
+                                                                                        $classtwo,
+                                                                                        2,
+                                                                                    );
                                                                                 @endphp
                                                                                 {{ __('min') }}
                                                                             </div>
@@ -397,22 +427,22 @@
                                 $user_enrolled = App\Order::where('course_id', $course->id)
                                     ->where('user_id', Auth::user()->id)
                                     ->first();
-                                
+
                                 $bundle = App\Order::where('user_id', Auth::User()->id)
                                     ->where('bundle_id', '!=', null)
                                     ->get();
-                                
+
                                 $course_id = [];
-                                
+
                                 foreach ($bundle as $b) {
                                     $bundle = App\BundleCourse::where('id', $b->bundle_id)->first();
                                     array_push($course_id, $bundle->course_id);
                                 }
-                                
+
                                 $course_id = array_values(array_filter($course_id));
-                                
+
                                 $course_id = array_flatten($course_id);
-                                
+
                             @endphp
 
 
@@ -861,7 +891,10 @@
                                                             {{-- Add to wishlisht --}}
                                                             @if (Auth::check())
                                                                 @php
-                                                                    $wishtt = App\Wishlist::where('user_id', Auth::User()->id)
+                                                                    $wishtt = App\Wishlist::where(
+                                                                        'user_id',
+                                                                        Auth::User()->id,
+                                                                    )
                                                                         ->where('course_id', $rel->course_id)
                                                                         ->first();
                                                                 @endphp
@@ -871,8 +904,14 @@
                                                                             <ul>
                                                                                 @if (Auth::check())
                                                                                     @php
-                                                                                        $wish = App\Wishlist::where('user_id', Auth::User()->id)
-                                                                                            ->where('course_id', $rel->course_id)
+                                                                                        $wish = App\Wishlist::where(
+                                                                                            'user_id',
+                                                                                            Auth::User()->id,
+                                                                                        )
+                                                                                            ->where(
+                                                                                                'course_id',
+                                                                                                $rel->course_id,
+                                                                                            )
                                                                                             ->first();
                                                                                     @endphp
                                                                                     @if ($wish == null)
@@ -1031,12 +1070,18 @@
                                                                         ?>
 
                                                                         @php
-                                                                            $reviewsrating = App\ReviewRating::where('course_id', $rel->course_id)->first();
+                                                                            $reviewsrating = App\ReviewRating::where(
+                                                                                'course_id',
+                                                                                $rel->course_id,
+                                                                            )->first();
                                                                         @endphp
                                                                         @if (!empty($reviewsrating))
                                                                             <li class="reviews">
                                                                                 (@php
-                                                                                    $data = App\ReviewRating::where('course_id', $rel->course_id)->count();
+                                                                                    $data = App\ReviewRating::where(
+                                                                                        'course_id',
+                                                                                        $rel->course_id,
+                                                                                    )->count();
                                                                                     if ($data > 0) {
                                                                                         echo $data;
                                                                                     } else {
@@ -1307,9 +1352,9 @@
                                     <div class="refund-policy-block">
                                         @if (isset($course->policy))
                                             @php
-                                                
+
                                                 $days = $course->policy->days;
-                                                
+
                                                 $detail = $course->policy->detail;
                                             @endphp
                                             <div class="money-back-days">
@@ -1318,6 +1363,16 @@
                                                     data-toggle="tooltip" data-placement="top" data-html="true"
                                                     title="{!! $detail !!}"><i
                                                         class="fas fa-info-circle"></i></button>
+                                            </div>
+                                            <div>
+                                                <div class="money-back-days">
+                                                    {{ isset($course->vr_code) || isset($course->vr_hole) ? 'Supports VR' : '' }}
+                                                    <button type="button" class="btn btn-secondary"
+                                                        data-toggle="tooltip" data-placement="top" data-html="true"
+                                                        title="Supports VR"><i
+                                                            class="fas fa-check text-success"></i></button>
+                                                </div>
+
                                             </div>
                                         @endif
 
@@ -1500,14 +1555,16 @@
                                                         <div class="social-icon">
 
                                                             @php
-                                                                
+
                                                                 echo Share::currentPage('', [], '<div class="row">')
                                                                     ->facebook()
                                                                     ->twitter()
-                                                                    ->linkedin('Extra linkedin summary can be passed here')
+                                                                    ->linkedin(
+                                                                        'Extra linkedin summary can be passed here',
+                                                                    )
                                                                     ->whatsapp()
                                                                     ->telegram();
-                                                                
+
                                                             @endphp
 
                                                         </div>
@@ -1585,7 +1642,7 @@
                                 $live_2 = App\Googlemeet::where('user_id', '=', $course->user->id)->count();
                                 $live_3 = App\JitsiMeeting::where('user_id', '=', $course->user->id)->count();
                                 $live_4 = App\BBL::where('instructor_id', '=', $course->user->id)->count();
-                                
+
                                 $live_class = $live_1 + $live_2 + $live_3 + $live_4;
                             @endphp
 
@@ -1610,7 +1667,8 @@
                             <div class="row">
                                 <div class="col-lg-12">
                                     @php
-                                        $fullnameIns = optional($course->user)->fname . ' ' . optional($course->user)->lname;
+                                        $fullnameIns =
+                                            optional($course->user)->fname . ' ' . optional($course->user)->lname;
                                         $fullnameIns = preg_replace('/\s+/', '', $fullnameIns);
                                     @endphp
                                     <a href="{{ route('instructor.profile', ['id' => $course->user->id, 'name' => $fullnameIns]) }}"
@@ -1824,10 +1882,7 @@
                                 $count = count($reviews);
                                 $onlyrev = [];
                                 
-                                $reviewcount = App\ReviewRating::where('course_id', 1)
-                                    ->where('status', '1')
-                                    ->WhereNotNull('review')
-                                    ->get();
+                                $reviewcount = App\ReviewRating::where('course_id', 1)->where('status', '1')->WhereNotNull('review')->get();
                                 
                                 foreach ($reviews as $review) {
                                     $learn = $review->learn * 5;
@@ -2044,22 +2099,22 @@
                             $user_enrolled = App\Order::where('course_id', $course->id)
                                 ->where('user_id', Auth::user()->id)
                                 ->first();
-                            
+
                             $bundle = App\Order::where('user_id', Auth::User()->id)
                                 ->where('bundle_id', '!=', null)
                                 ->get();
-                            
+
                             $course_id = [];
-                            
+
                             foreach ($bundle as $b) {
                                 $bundle = App\BundleCourse::where('id', $b->bundle_id)->first();
                                 array_push($course_id, $bundle->course_id);
                             }
-                            
+
                             $course_id = array_values(array_filter($course_id));
-                            
+
                             $course_id = array_flatten($course_id);
-                            
+
                         @endphp
 
 
@@ -2155,14 +2210,14 @@
                                                             <th scope="row">{{ __('Value') }}</th>
                                                             <td>
                                                                 <div class="star-rating">
-                                                                    <input id="option11" type="radio" name="value"
-                                                                        value="5" />
+                                                                    <input id="option11" type="radio"
+                                                                        name="value" value="5" />
                                                                     <label for="option11" title="5 stars">
                                                                         <i class="active fa fa-star mrg-lft"
                                                                             aria-hidden="true"></i>
                                                                     </label>
-                                                                    <input id="option12" type="radio" name="value"
-                                                                        value="4" />
+                                                                    <input id="option12" type="radio"
+                                                                        name="value" value="4" />
                                                                     <label for="option12" title="4 stars">
                                                                         <i class="active fa fa-star mrg-lft"
                                                                             aria-hidden="true"></i>
@@ -2263,7 +2318,10 @@
 
                                                         <div class="review">{{ __('helpful') }}?
                                                             @php
-                                                                $help = App\ReviewHelpful::where('user_id', Auth::User()->id)
+                                                                $help = App\ReviewHelpful::where(
+                                                                    'user_id',
+                                                                    Auth::User()->id,
+                                                                )
                                                                     ->where('review_id', $rating->id)
                                                                     ->first();
                                                             @endphp
