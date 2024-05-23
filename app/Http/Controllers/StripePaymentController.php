@@ -58,13 +58,13 @@ class StripePaymentController extends Controller
 
             $orderId = $request['order_id'];
 
-            Log::debug('Found orderId ' .$orderId);
+            Log::debug('Found orderId ' . $orderId);
 
             $order = Order::findOrFail($orderId);
 
-            Log::debug('Found order ' .$order);
+            Log::debug('Found order ' . $order);
 
-            Log::debug('Payment method: '.$order->payment_method);
+            Log::debug('Payment method: ' . $order->payment_method);
 
             $status = 'canceled';
 
@@ -88,7 +88,7 @@ class StripePaymentController extends Controller
                 }
             }
 
-            Log::debug('Payment method: '.$order->payment_method);
+            Log::debug('Payment method: ' . $order->payment_method);
             $order->status = 0;
             $order->subscription_status =  $status;
             $bundle_title = $order->bundle->title;
@@ -294,12 +294,10 @@ class StripePaymentController extends Controller
                     $order = $created_order;
                     Mail::to(Auth::User()->email)->send(new SendOrderMail($x, $order));
 
-                    $x = 'User Enrolled in course '. $cart->courses->title;
+                    $x = 'User Enrolled in course ' . $cart->courses->title;
                     $order = $created_order;
                     Mail::to($cart->courses->user->email)->send(new AdminMailOnOrder($x, $order));
-
                 } catch (\Swift_TransportException $e) {
-                    
                 }
             }
         }
